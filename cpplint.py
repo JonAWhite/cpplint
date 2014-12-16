@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2009 Google Inc. All rights reserved.
+# Copyright (c) 2009-2014 Google Inc. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -4626,10 +4626,12 @@ def CheckIncludeLine(filename, clean_lines, linenum, include_state, error):
   #
   # We also make an exception for Lua headers, which follow google
   # naming convention but not the include convention.
-  match = Match(r'#include\s*"([^/]+\.h)"', line)
-  if match and not _THIRD_PARTY_HEADERS_PATTERN.match(match.group(1)):
-    error(filename, linenum, 'build/include', 4,
-          'Include the directory when naming .h files')
+  
+  # JW -- Commenting out Header Directory Check since my environment doesn't have directories
+  #match = Match(r'#include\s*"([^/]+\.h)"', line)
+  #if match and not _THIRD_PARTY_HEADERS_PATTERN.match(match.group(1)):
+    #error(filename, linenum, 'build/include', 4,
+          #'Include the directory when naming .h files')
 
   # we shouldn't include a file more than once. actually, there are a
   # handful of instances where doing so is okay, but in general it's
