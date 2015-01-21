@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2009-2014 Google Inc. All rights reserved.
+# Copyright (c) 2009-2015 Google Inc. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -2773,7 +2773,7 @@ def CheckSpacingForFunctionCall(filename, clean_lines, linenum, error):
   # Note that we assume the contents of [] to be short enough that
   # they'll never need to wrap.
   if (  # Ignore control structures.
-      not Search(r'\b(if|for|while|switch|return|new|delete|catch|sizeof)\b',
+      not Search(r'\b(if|for|while|switch|return|new|delete|catch|sizeof|BOOST_FOREACH)\b',
                  fncall) and
       # Ignore pointers/references to functions.
       not Search(r' \([^)]+\)\([^)]*(\)|,$)', fncall) and
@@ -3251,7 +3251,7 @@ def CheckParenthesisSpacing(filename, clean_lines, linenum, error):
   line = clean_lines.elided[linenum]
 
   # No spaces after an if, while, switch, or for
-  match = Search(r' (if\(|for\(|while\(|switch\()', line)
+  match = Search(r' (if\(|for\(|while\(|switch\(|BOOST_FOREACH\())', line)
   if match:
     error(filename, linenum, 'whitespace/parens', 5,
           'Missing space before ( in %s' % match.group(1))
@@ -3261,7 +3261,7 @@ def CheckParenthesisSpacing(filename, clean_lines, linenum, error):
   # there should either be zero or one spaces inside the parens.
   # We don't want: "if ( foo)" or "if ( foo   )".
   # Exception: "for ( ; foo; bar)" and "for (foo; bar; )" are allowed.
-  match = Search(r'\b(if|for|while|switch)\s*'
+  match = Search(r'\b(if|for|while|switch|BOOST_FOREACH)\s*'
                  r'\(([ ]*)(.).*[^ ]+([ ]*)\)\s*{\s*$',
                  line)
   if match:
